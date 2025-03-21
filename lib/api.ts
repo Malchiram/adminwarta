@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios, { Axios } from 'axios';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const api = (baseUrl?:string): Axios  => {
   const defaultOptions = {
-    baseURL: baseUrl,
+    baseURL: 'https://backend.gpdishekinah.online/api/',
     withCredentials: true, // Tambahkan ini supaya cookie dikirim otomatis
   };
 
