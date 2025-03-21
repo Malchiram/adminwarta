@@ -12,8 +12,6 @@ export interface API_PROPS {
     params?: any;
     Customheaders?: any;
   }
-
-  
 const fetcherSWR = async (props: API_PROPS): Promise<any> => {
   switch (props.method) {
     case "POST":
