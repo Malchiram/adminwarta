@@ -2,7 +2,7 @@
 import api from "../api";
 // import useSWR, { KeyedMutator } from "swr";
 // const API_URL = '/api/proxy?endpoint=api/'
-const API_URL = 'http://localhost:8080/api/'
+const API_URL = 'https://backend.gpdishekinah.online/api/'
 
 export interface API_PROPS {
     url: string;
