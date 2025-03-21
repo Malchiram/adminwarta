@@ -1,8 +1,20 @@
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@400;700&family=Geist+Mono:wght@400;700&display=swap");
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --font-geist-sans: "Geist", sans-serif;
+  --font-geist-mono: "Geist Mono", monospace;
+}
+
+body {
+  font-family: var(--font-geist-sans);
+}
+
+
+:root {
+  --background: linear-gradient(-45deg, rgba(39,39,241,1) , rgba(62,54,195,1), rgb(142, 138, 232), rgba(15,161,207,1));
+    --foreground: #ededed;
+    --red: rgb(119, 180, 215);
 }
 
 @theme inline {
@@ -14,13 +26,224 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: linear-gradient(-45deg, rgba(39,39,241,1) , rgba(62,54,195,1), rgb(142, 138, 232), rgba(15,161,207,1));
     --foreground: #ededed;
+    --red: rgb(119, 180, 215);
   }
 }
 
-body {
+.bg-custom {
+  background: rgb(119, 180, 215) !important;
+}
+
+.bg-content {
   background: var(--background);
   color: var(--foreground);
+  background-size: 400% 800%;
+  background-repeat: repeat;
+  animation: gradient 15s ease infinite;
+}
+
+html,body {
+  background: var(--background);
+  color: var(--foreground);
+  background-size: 400% 800%;
+  background-repeat: repeat;
+  height: 100dvh; 
+  overflow: hidden;
+  animation: gradient 15s ease infinite;
   font-family: Arial, Helvetica, sans-serif;
 }
+
+
+@keyframes gradient {
+  0% {
+      background-position: 0% 50%;
+  }
+  50% {
+      background-position: 100% 50%;
+  }
+  100% {
+      background-position: 0% 50%;
+  }
+}
+.menubar .ant-menu {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100vw;
+  
+} 
+.menubar .ant-menu .ant-menu-item  {
+min-height: 50px;
+width: 32%;
+}
+.menubar .ant-menu .ant-menu-item::selection  {
+border:1px solid #000 !important;
+}
+
+.ant-select-selection-item {
+  color: #fff !important;
+  text-align: center;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-family: var(--font-geist-mono);
+  font-weight: 700 !important;
+}
+
+.ant-select-focused .ant-select-selector,
+.ant-select-selector:focus,
+.ant-select-selector:active,
+.ant-select-open .ant-select-selector {
+  box-shadow: none !important;
+}
+.ant-select-selector {
+  background: transparent !important;
+  border: none !important;
+  border-bottom: 2px solid var(--red) !important ;
+  color:#fff !important;
+  font-size: 19px !important;
+  border-radius: 0 !important;
+
+}
+.ant-select-arrow{
+  color:#fff !important;
+  
+}
+.ant-select-item-option {
+  color: #000 !important;
+  font-size: 18px !important;
+   /* Mengubah warna teks pilihan */
+}
+
+.borderCustom {
+  border: 2px solid var(--red);
+  border-radius: 10px;
+
+}
+
+
+/* input */
+
+.cardInput {
+  /* position: relative; */
+  display: block;
+  /* max-width: 700px; */
+  /* min-width: 500px; */
+  padding: 10px 0;
+  margin: 3px auto 0;
+  border-radius: 10px;
+  width: 90%;
+}
+
+.transition {
+  transition: all 0.25s cubic-bezier(.53, .01, .35, 1.5);
+}
+
+h1 {
+  color: var(--red);
+  font-weight: 100;
+  letter-spacing: 0.01em;
+  margin-left: 15px;
+  margin-bottom: 35px;
+  text-transform: uppercase;
+}
+
+button {
+  /* Menggunakan .transition untuk transisi */
+  transition: all 0.25s cubic-bezier(.53, .01, .35, 1.5);
+  margin-top: 35px;
+  background-color: white;
+  border: 1px solid var(--red);
+  line-height: 0;
+  font-size: 17px;
+  display: inline-block;
+  box-sizing: border-box;
+  padding: 20px 15px;
+  border-radius: 60px;
+  color: var(--red);
+  font-weight: 100;
+  letter-spacing: 0.01em;
+  position: relative;
+  z-index: 1;
+}
+
+button:hover,
+button:focus {
+  color: white;
+  background-color: var(--red);
+}
+
+.question {
+  position: relative;
+  padding: 15px 0;
+}
+
+.question:first-of-type {
+  padding-top: 0;
+}
+
+.question:last-of-type {
+  padding-bottom: 0;
+}
+
+.question label {
+  transition: all 0.25s cubic-bezier(.53, .01, .35, 1.5);
+  transform-origin: left center;
+  color: #fff;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  font-size: 19px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 5px 15px;
+  display: block;
+  position: absolute;
+  margin-top: -45px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.question input[type="text"] {
+  transition: all 0.25s cubic-bezier(.53, .01, .35, 1.5);
+  appearance: none;
+  background-color: none;
+  border: 2px solid var(--red);
+  line-height: 0;
+  font-size: 18px;
+  width: 100%;
+  display: block;
+  box-sizing: border-box;
+  padding: 3px 15px;
+  min-height: 3rem;
+  border-radius: 10px;
+  color: #fff;
+  font-weight: 300;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.05em;
+  position: relative;
+  z-index: 1;
+}
+
+.question input[type="text"]:focus {
+  outline: none;
+  background: var(--red);
+  color: rgb(2, 1, 1);
+  margin-top: 30px;
+}
+
+.question input[type="text"]:valid {
+  margin-top: 30px;
+}
+
+.question input[type="text"]:focus ~ label {
+  transform: translate(-5px, -40px);
+}
+
+.question input[type="text"]:valid ~ label {
+  font-style: italic;
+  transform: translate(-5px, -35px) scale(0.8);
+  letter-spacing: 1.5px;
+  font-weight: 500;
+}
+
