@@ -1,8 +1,7 @@
-'use client'
+"use client";
 import "./globals.css";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { Providers } from "@/lib/Provider";
-
 
 export default function RootLayout({
   children,
@@ -11,15 +10,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        suppressHydrationWarning
-        >
+      <body suppressHydrationWarning>
         <Providers>
-        <AntdRegistry>
-
-        {children}
-        </AntdRegistry>
-    </Providers>
+          <AntdRegistry>{children}</AntdRegistry>
+        </Providers>
       </body>
     </html>
   );

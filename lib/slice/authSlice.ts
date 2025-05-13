@@ -18,10 +18,13 @@ const authSlice = createSlice({
     login: (state , action: PayloadAction<{token: string }>) => {
       state.isAuthenticated = true;
       localStorage.setItem("token", action.payload.token);
+      localStorage.setItem("authenticated", JSON.stringify(true));
     },
     logout: (state) => {
 
-      state.isAuthenticated = false;  // Mengubah status menjadi false saat logout
+      state.isAuthenticated = false; 
+      localStorage.setItem("authenticated", JSON.stringify(false));
+       // Mengubah status menjadi false saat logout
     },
   },
 });
