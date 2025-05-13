@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { DataType, Event, Komsel, PostEvent } from "@/lib/api/event";
 import { handleMenu } from "@/lib/slice/menuSlice";
@@ -10,6 +11,8 @@ interface inputInterface {
   label: string;
   onChange?: React.ChangeEventHandler<HTMLInputElement> | undefined;
 }
+
+import Papa from 'papaparse';
 
 const useStyle = createStyles(({ prefixCls, css }) => ({
   linearGradientButton: css`
@@ -340,6 +343,31 @@ const minMore = () => {
       })
     }
   },[eventKomsel])
+  const [file, setFile] = useState<File | null>(null);
+  const [jsonData, setJsonData] = useState<any[]>([]);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files ? e.target.files[0] : null;
+    setFile(file);
+  };
+
+  const handleFileUpload = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!file) {
+      alert('Please select a file');
+      return;
+    }
+console.log(jsonData)
+    // Parse CSV to JSON using PapaParse
+    Papa.parse(file, {
+      complete: (result : any) => {
+        setJsonData(result.data); // result.data contains the parsed JSON
+        console.log('Parsed CSV to JSON:', result.data);
+      },
+      header: true, // If CSV contains headers
+    });
+  };
   return (
     <div className="w-full      ">
       <div className="mx-auto text-center text-xl font-mono mb-3 text-white font-semibold">
@@ -466,6 +494,10 @@ const minMore = () => {
           </Button>
         </ConfigProvider>
       </div>
+        <form onSubmit={handleFileUpload}>
+        <input type="file" accept=".csv" onChange={handleFileChange} />
+        <button type="submit">Upload CSV</button>
+      </form>
       {eventData?.eventName !== "pemuda" && more.length < 2 && (
         <FloatButton.Group
           open={open}
