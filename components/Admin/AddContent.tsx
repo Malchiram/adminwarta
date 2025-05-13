@@ -75,6 +75,9 @@ const AddContent = () => {
   const [eventData, setEventData] = useState<Event >(initateValue);
   const [eventKomsel, setEventKomsel] = useState<Komsel[]>([]);
   const [repeatCount, setRepeatCount] = useState(1);
+  const [dataCsv, setDataCsv] = useState(false);
+  const [file, setFile] = useState<File | null>(null);
+  const [jsonData, setJsonData] = useState<Event>(initateValue);
 
 const addMore = () => {
   setRepeatCount((prev) => prev + 1);
@@ -115,6 +118,7 @@ const minMore = () => {
       return { ...prev, event: updatedEvent };
     });
   };
+  
   const inputData = useMemo(
     (): inputInterface[] => [
      
@@ -319,17 +323,29 @@ const minMore = () => {
         if(eventKomsel.length > 0) {
           setEventData({...eventData,komsel:eventKomsel})
         }
-        const response = await PostEvent(eventData)
-        
-        console.log(response ,'ini')
-        if(response.status === 200) {
-          dispatch(handleMenu(1))
+        console.log(dataCsv,'ini data csv')
+        if(dataCsv) {
+
+          const response = await PostEvent(jsonData)
+          console.log(response ,'ini')
+          if(response.status === 200) {
+            dispatch(handleMenu(1))
+          }
+        } else {
+          const response = await PostEvent(eventData)
+          console.log(response ,'ini')
+          if(response.status === 200) {
+            dispatch(handleMenu(1))
+          }
+
         }
+        
     } catch (error) {
       console.log(error)
       
     } finally {
       setEventData(initateValue)
+      setDataCsv(false)
     }
   }
   useEffect(() => {
@@ -343,8 +359,6 @@ const minMore = () => {
       })
     }
   },[eventKomsel])
-  const [file, setFile] = useState<File | null>(null);
-  const [jsonData, setJsonData] = useState<any[]>([]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files ? e.target.files[0] : null;
@@ -381,7 +395,10 @@ const minMore = () => {
       }));
 
       console.log(jsonDatas,'ini json datas'); 
-      setJsonData(jsonDatas)// kirim ke backend
+      if(jsonDatas.length > 0) {
+setDataCsv(true)
+        setJsonData(jsonDatas[0])// kirim ke backend
+      }
     }
   });
   };
