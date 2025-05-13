@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { TableColumnsType } from 'antd';
 import { Table } from 'antd';
 import { createStyles } from 'antd-style';
-import React from 'react';
-
+import React, { useState } from 'react';
+import Papa from 'papaparse';
 const useStyle = createStyles(({ css,prefixCls }) => {
 
     // const {antCls} = token
@@ -67,7 +68,33 @@ const dataSource: DataType[] = [
 
 const AdminPanel: React.FC = () => {
   const { styles } = useStyle();
+ const [file, setFile] = useState<File | null>(null);
+  const [jsonData, setJsonData] = useState<any[]>([]);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files ? e.target.files[0] : null;
+    setFile(file);
+  };
+
+  const handleFileUpload = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!file) {
+      alert('Please select a file');
+      return;
+    }
+console.log(jsonData)
+    // Parse CSV to JSON using PapaParse
+    Papa.parse(file, {
+      complete: (result : any) => {
+        setJsonData(result.data); // result.data contains the parsed JSON
+        console.log('Parsed CSV to JSON:', result.data);
+      },
+      header: true, // If CSV contains headers
+    });
+  };
   return (
+    <>
     <Table<DataType>
       className={styles.customTable}
       pagination={false}
@@ -75,6 +102,11 @@ const AdminPanel: React.FC = () => {
       dataSource={dataSource}
       scroll={{ x: 'max-content' }}
     />
+      <form onSubmit={handleFileUpload}>
+        <input type="file" accept=".csv" onChange={handleFileChange} />
+        <button type="submit">Upload CSV</button>
+      </form>
+    </>
   );
 };
 
