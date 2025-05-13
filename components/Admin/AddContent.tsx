@@ -358,16 +358,35 @@ const minMore = () => {
       alert('Please select a file');
       return;
     }
-console.log(jsonData)
     // Parse CSV to JSON using PapaParse
     Papa.parse(file, {
-      complete: (result : any) => {
-        setJsonData(result.data); // result.data contains the parsed JSON
-        console.log('Parsed CSV to JSON:', result.data);
-      },
-      header: true, // If CSV contains headers
-    });
+    header: true,
+    skipEmptyLines: true,
+    complete: (results: Papa.ParseResult<any>) => {
+      const jsonDatas = results.data.map((row: any) => ({
+        eventName: row.eventName,
+        dateEvent: row.dateEvent,
+        event: {
+          wl: row.wl,
+          singer: row.singer ? row.singer.split(';').map((s: string) => s.trim()) : [],
+          music: row.music ? row.music.split(';').map((s: string) => s.trim()) : [],
+          usher: row.usher ? row.usher.split(';').map((s: string) => s.trim()) : [],
+          kolekte: row.kolekte ? row.kolekte.split(';').map((s: string) => s.trim()) : [],
+          pendoaSyafaat: row.pendoaSyafaat ? row.pendoaSyafaat.split(';').map((s: string) => s.trim()) : [],
+          multimedia: row.multimedia ? row.multimedia.split(';').map((s: string) => s.trim()) : [],
+          tamborin: row.tamborin ? row.tamborin.split(';').map((s: string) => s.trim()) : [],
+          pembacaWarta: row.pembacaWarta,
+          perjamuan: row.perjamuan ? row.perjamuan.split(';').map((s: string) => s.trim()) : []
+        }
+      }));
+
+      console.log(jsonDatas,'ini json datas'); 
+      setJsonData(jsonDatas)// kirim ke backend
+    }
+  });
   };
+  console.log(jsonData);
+  
   return (
     <div className="w-full      ">
       <div className="mx-auto text-center text-xl font-mono mb-3 text-white font-semibold">
