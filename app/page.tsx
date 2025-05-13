@@ -11,7 +11,7 @@ const Page = () => {
   );
   const [loggedIn, setLoggedIn] = useState(false);
   useEffect(() => {
-    const isLoggedIn = JSON.parse(localStorage.getItem('isLoggedIn') || 'false')
+    const isLoggedIn = JSON.parse(localStorage.getItem('authenticated') || 'false')
   setLoggedIn(isLoggedIn)
     },[isAuthenticated])
   return loggedIn ? <AdminPage /> : <LoginPage />;
