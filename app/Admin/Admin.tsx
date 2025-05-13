@@ -21,7 +21,7 @@ const AdminPage = () => {
     }
   },[isMenuActive])
   useEffect(() => {
-   const accessToken = document.cookie.split('; ').find(row => row.startsWith('access_token='));
+   const accessToken = document.cookie.split('; ')
 console.log(accessToken , ' ini ada token');
 
   },[])
