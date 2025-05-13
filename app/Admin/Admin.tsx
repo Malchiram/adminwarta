@@ -3,7 +3,7 @@
 import AddContent from "@/components/Admin/AddContent";
 import AdminPanel from "@/components/Admin/AdminPanel";
 import { RootState } from "@/lib/store/store";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { useSelector } from "react-redux";
 import AdminLayout from "./Layout";
 
@@ -20,12 +20,11 @@ const AdminPage = () => {
         return <AdminPanel />
     }
   },[isMenuActive])
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     localStorage.removeItem("token")
+  useEffect(() => {
+   const accessToken = document.cookie.split('; ').find(row => row.startsWith('access_token='));
+console.log(accessToken , ' ini ada token');
 
-  //   } ,300000)
-  // },[])
+  },[])
   return (
 <AdminLayout>
 {handleMenu}
